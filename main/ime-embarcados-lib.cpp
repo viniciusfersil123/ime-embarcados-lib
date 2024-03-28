@@ -4,6 +4,7 @@
 #include "Phasor.h"
 #include "Oscillator.h"
 #include "Metro.h"
+#include "Adsr.h"
 
 static const uint16_t Volume = 1023;
 static uint32_t Value32Bit;
@@ -13,17 +14,19 @@ size_t BytesWritten;
 Phasor phs;
 Oscillator osc;
 Metro clock;
+Adsr env;
+bool gate;
 
 void audio_callback()
 {
-    uint8_t tic;
-    float freq;
-    tic = clock.Process();
-    if (tic)
+    float env_out;
+    if (clock.Process())
     {
-        freq = rand() % 500;
-        osc.SetFreq(freq);
+        gate = !gate;
     }
+
+    env_out = env.Process(gate);
+    osc.SetAmp(env_out);
 
     int16_t OutputValue = (int16_t)(osc.Process() * Volume);
     Value32Bit = (OutputValue << 16) | (OutputValue & 0xffff);
@@ -37,7 +40,12 @@ extern "C" void app_main(void)
     phs.Init(44100, 0.0105);
     osc.Init(44100);
     osc.SetWaveform(Oscillator::WAVE_POLYBLEP_SAW);
-    clock.Init(10, 44100);
+    env.Init(44100);
+    env.SetAttackTime(0.3);
+    env.SetDecayTime(0.1);
+    env.SetSustainLevel(1);
+    env.SetReleaseTime(0.5);
+    clock.Init(1, 44100);
 
     while (1)
     {
