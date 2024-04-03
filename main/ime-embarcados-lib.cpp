@@ -23,6 +23,8 @@ bool gate;
 int counter = 0;
 int adc_raw;
 float adc_normalized;
+float amp = 0.5;
+float base_freq = 220.0;
 
 int multisample(int samples)
 {
@@ -41,14 +43,15 @@ float normalize(int raw, int max_raw)
 
 void audio_callback()
 {
-    float env_out;
-    if (clock.Process())
-    {
-        gate = !gate;
-    }
+    /* {
+        float env_out;
+        if (clock.Process())
+        {
+            gate = !gate;
+        } */
 
-    env_out = env.Process(gate);
-    osc.SetAmp(env_out);
+    /*     env_out = env.Process(gate);
+        osc.SetAmp(env_out); */
 
     int16_t OutputValue = (int16_t)(osc.Process() * Volume);
     Value32Bit = (OutputValue << 16) | (OutputValue & 0xffff);
@@ -61,7 +64,7 @@ extern "C" void app_main(void)
     i2s_set_pin(i2s_num, &pin_config);
     phs.Init(44100, 0.0105);
     osc.Init(44100);
-    osc.SetWaveform(Oscillator::WAVE_POLYBLEP_SAW);
+    osc.SetWaveform(Oscillator::WAVE_POLYBLEP_SQUARE);
     env.Init(44100);
     env.SetAttackTime(0.05);
     env.SetDecayTime(0.1);
@@ -85,8 +88,12 @@ extern "C" void app_main(void)
         {
             adc_raw = multisample(128);
             adc_normalized = normalize(adc_raw, 4095);
+            //
+            amp = adc_normalized;
+            //
             counter = 0;
         }
-        osc.SetFreq(int(880 * adc_normalized));
+        osc.SetAmp(amp);
+
     }
 }
