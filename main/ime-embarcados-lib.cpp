@@ -104,8 +104,8 @@ extern "C" void app_main(void)
     env.SetReleaseTime(0.5);
     clock.Init(1, 44100);
     adc1_config_width(ADC_WIDTH_BIT_12);
-    adc1_config_channel_atten(ADC1_CHANNEL_7, ADC_ATTEN_DB_12);
-    adc1_config_channel_atten(ADC1_CHANNEL_4, ADC_ATTEN_DB_12);
+    adc1_config_channel_atten(ADC1_CHANNEL_0, ADC_ATTEN_DB_12);
+    adc1_config_channel_atten(ADC1_CHANNEL_3, ADC_ATTEN_DB_12);
     adc2_config_channel_atten(ADC2_CHANNEL_5, ADC_ATTEN_DB_12);
 
     // draws a exponential curve that goes from 0 to 1
@@ -123,17 +123,21 @@ extern "C" void app_main(void)
         }
         else
         {
-            adc1_raw = multisample(32, ADC1_CHANNEL_4);
+            adc1_raw = multisample(32, ADC1_CHANNEL_0);
             adc1_normalized = normalize(adc1_raw, 4095);
+            adc2_raw = multisample(32, ADC1_CHANNEL_3);
+            adc2_normalized = normalize(adc2_raw, 4095);
+            amp = adc1_normalized;
+            env.SetReleaseTime(0.01 + (adc2_normalized * 2));
             button_raw = multisample2(32, ADC2_CHANNEL_5);
 
             //  convert base freq to log scale
-            amp = adc1_normalized;
-            printf("Normalized: %d\n", raw_out);
-            printf("Gate: %d\n", gate);
-            // adc2_raw = multisample(32, ADC1_CHANNEL_4);
-            // adc2_normalized = normalize(adc2_raw, 4095);
-            // lfo_amp = (expMap[(int)(adc2_normalized * 4090)]);
+
+            printf("Normalized: %f\n", adc2_normalized);
+            // printf("Gate: %d\n", gate);
+            //  adc2_raw = multisample(32, ADC1_CHANNEL_4);
+            //  adc2_normalized = normalize(adc2_raw, 4095);
+            //  lfo_amp = (expMap[(int)(adc2_normalized * 4090)]);
             counter = 0;
         }
     }
