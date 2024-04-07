@@ -13,7 +13,7 @@ size_t BytesWritten;
 // TODO: Atualizar driver i2s
 // TODO: Atualizar driver adc
 // TODO: implementar FREERTOS
-// TODO:"Limpar" valores ADC
+// TODO:"Limpar" valores ADC (IMPLEMENTAR LINE)
 
 float expMap[4096];
 
@@ -24,11 +24,17 @@ Metro clock;
 Adsr env;
 bool gate;
 int counter = 0;
-int adc_raw;
-float adc_normalized;
+int adc1_raw;
+int adc2_raw;
+int button_raw;
+int raw_out;
+float adc1_normalized;
+float adc2_normalized;
 float amp = 0.5;
 float base_freq = 220.0;
 float lfo_freq = 1.0;
+float lfo_amp = 0.5;
+bool button_state = false;
 
 int multisample(int samples, adc1_channel_t channel)
 {
@@ -40,6 +46,16 @@ int multisample(int samples, adc1_channel_t channel)
     return sum / samples;
 }
 
+int multisample2(int samples, adc2_channel_t channel)
+{
+    int sum = 0;
+    for (int i = 0; i < samples; i++)
+    {
+        sum += adc2_get_raw(channel, ADC_WIDTH_BIT_12, &raw_out);
+    }
+    return sum / samples;
+}
+
 float normalize(int raw, int max_raw)
 {
     return (float)raw / (float)max_raw;
@@ -47,17 +63,24 @@ float normalize(int raw, int max_raw)
 
 void audio_callback()
 {
-    /* {
-        float env_out;
-        if (clock.Process())
-        {
-            gate = !gate;
-        } */
 
-    /*     env_out = env.Process(gate);
-        osc.SetAmp(env_out); */
-    osc.SetAmp(amp);
+    float env_out;
+    if (raw_out < 2000)
+    {
+        gate = true;
+    }
+    else
+    {
+        gate = false;
+    }
 
+    env_out = env.Process(gate);
+    osc.SetAmp(env_out * amp);
+    osc.SetFreq(base_freq);
+
+    // lfo.SetFreq(lfo_freq * 20);
+    // lfo.SetAmp(lfo_amp);
+    // lfo.Process();
     int16_t OutputValue = (int16_t)(osc.Process() * Volume);
     Value32Bit = (OutputValue << 16) | (OutputValue & 0xffff);
     i2s_write(i2s_num, &Value32Bit, 4, &BytesWritten, portMAX_DELAY);
@@ -81,8 +104,9 @@ extern "C" void app_main(void)
     env.SetReleaseTime(0.5);
     clock.Init(1, 44100);
     adc1_config_width(ADC_WIDTH_BIT_12);
-    adc1_config_channel_atten(ADC1_CHANNEL_5, ADC_ATTEN_DB_11);
-    adc1_config_channel_atten(ADC1_CHANNEL_4, ADC_ATTEN_DB_11);
+    adc1_config_channel_atten(ADC1_CHANNEL_7, ADC_ATTEN_DB_12);
+    adc1_config_channel_atten(ADC1_CHANNEL_4, ADC_ATTEN_DB_12);
+    adc2_config_channel_atten(ADC2_CHANNEL_5, ADC_ATTEN_DB_12);
 
     // draws a exponential curve that goes from 0 to 1
     for (int i = 0; i < 4095; i++)
@@ -95,22 +119,22 @@ extern "C" void app_main(void)
         audio_callback();
         if (counter < 1000)
         {
-            // vTaskDelay(100 / portTICK_PERIOD_MS);
-
-            // printf("Normalized: %.3f\n", adc_normalized);
             counter++;
         }
         else
         {
-            adc_raw = multisample(100, ADC1_CHANNEL_5);
-            adc_normalized = normalize(adc_raw, 4095);
-            // convert base freq to log scale
-            base_freq = 30 + 9000 * (expMap[(int)(adc_normalized * 4090)]);
-            // printf("Normalized: %.3f\n", base_freq);
-            amp = normalize(multisample(100, ADC1_CHANNEL_4), 4095);
+            adc1_raw = multisample(32, ADC1_CHANNEL_4);
+            adc1_normalized = normalize(adc1_raw, 4095);
+            button_raw = multisample2(32, ADC2_CHANNEL_5);
+
+            //  convert base freq to log scale
+            amp = adc1_normalized;
+            printf("Normalized: %d\n", raw_out);
+            printf("Gate: %d\n", gate);
+            // adc2_raw = multisample(32, ADC1_CHANNEL_4);
+            // adc2_normalized = normalize(adc2_raw, 4095);
+            // lfo_amp = (expMap[(int)(adc2_normalized * 4090)]);
             counter = 0;
         }
-        osc.SetFreq(base_freq);
-        osc.SetAmp(amp);
     }
 }
