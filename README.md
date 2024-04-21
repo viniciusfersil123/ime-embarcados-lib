@@ -43,7 +43,6 @@ No terminal, onde vai usar o ESP-IDF, execute:
 Para facilitar o uso frequente do ESP-IDF, recomenda-se a criação de um alias.
 1. Copie e cole o seguinte comando no perfil do seu shell (.profile, .bashrc, .zprofile, etc.)
 ```
-
 alias get_idf='. $HOME/esp/esp-idf/export.sh'
 ```
 2. Reinicie o terminal
@@ -52,6 +51,5 @@ alias get_idf='. $HOME/esp/esp-idf/export.sh'
 Crie uma pasta que usará para seus projetos, navegue até ela  e clone nosso repositório com o seguinte comando
 1. Copie e cole o seguinte comando no perfil do seu shell (.profile, .bashrc, .zprofile, etc.)
 ```
-
 git clone git@github.com:viniciusfersil123/ime-embarcados-lib.git
 ```
