@@ -53,5 +53,5 @@ Crie uma pasta que usará para seus projetos, navegue até ela  e clone nosso re
 1. Copie e cole o seguinte comando no perfil do seu shell (.profile, .bashrc, .zprofile, etc.)
 ```
 
-alias get_idf='. $HOME/esp/esp-idf/export.sh'
+git clone git@github.com:viniciusfersil123/ime-embarcados-lib.git
 ```
