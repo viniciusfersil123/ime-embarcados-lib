@@ -47,3 +47,11 @@ Para facilitar o uso frequente do ESP-IDF, recomenda-se a criação de um alias.
 alias get_idf='. $HOME/esp/esp-idf/export.sh'
 ```
 2. Reinicie o terminal
+
+### 5. Testando programa de exemplo
+Crie uma pasta que usará para seus projetos, navegue até ela  e clone nosso repositório com o seguinte comando
+1. Copie e cole o seguinte comando no perfil do seu shell (.profile, .bashrc, .zprofile, etc.)
+```
+
+alias get_idf='. $HOME/esp/esp-idf/export.sh'
+```
