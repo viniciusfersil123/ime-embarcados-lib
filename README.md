@@ -53,3 +53,29 @@ Crie uma pasta que usará para seus projetos, navegue até ela  e clone nosso re
 ```
 git clone git@github.com:viniciusfersil123/ime-embarcados-lib.git
 ```
+2. Rode
+```
+. $HOME/esp/esp-idf/export.sh
+```
+ou o alias correspondente
+
+3. Ligue o ESP32 via USB em seu conmputador, rode 
+```
+ls /dev/tty*
+```
+e guarde o nome da porta USB
+
+4. Rode
+```
+idf.py set-target esp32
+```
+
+5. Rode
+```
+idf_py build
+```
+
+6. Rode
+```
+idf_py flash
+```
