@@ -77,5 +77,6 @@ idf_py build
 
 6. Rode
 ```
-idf_py flash
+idf.py -p PORT flash
 ```
+substituindo PORT pelo nome da porta USB em que o ESP32 está conectado, por ex: `dev/ttyUSB0`. Se PORT não estiver disponível o ESP-IDF tentará fazer o flash nas portas USB disponíveis.
