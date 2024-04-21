@@ -19,3 +19,31 @@ mkdir -p ~/esp
 cd ~/esp
 git clone -b v5.2.1 --recursive https://github.com/espressif/esp-idf.git
 ```
+### 3. Configurando Tools
+Além do ESP-IDF, é necessário instalar as tools utilizadas pelo ESP-IDF, como compilador, debugger, pacotes Python, etc, para projetos que suportam ESP32.
+
+Rode o comando:
+```
+cd ~/esp/esp-idf
+./install.sh esp32
+```
+
+### 4. Configurando variáveis ambientais
+As tools instaladas ainda não foram adicionadas à variável de ambiente PATH. Para tornar as ferramentas utilizáveis na linha de comando, algumas variáveis de ambiente devem ser definidas. ESP-IDF fornece outro script que faz isso.
+```
+cd ~/esp/esp-idf
+./install.sh esp32
+```
+No terminal, onde vai usar o ESP-IDF, execute:
+```
+
+. $HOME/esp/esp-idf/export.sh
+```
+
+Para facilitar o uso frequente do ESP-IDF, recomenda-se a criação de um alias.
+1. Copie e cole o seguinte comando no perfil do seu shell (.profile, .bashrc, .zprofile, etc.)
+```
+
+alias get_idf='. $HOME/esp/esp-idf/export.sh'
+```
+2. Reinicie o terminal
