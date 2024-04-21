@@ -79,3 +79,10 @@ idf_py build
 idf.py -p PORT flash
 ```
 substituindo PORT pelo nome da porta USB em que o ESP32 está conectado, por ex: `dev/ttyUSB0`. Se PORT não estiver disponível o ESP-IDF tentará fazer o flash nas portas USB disponíveis.
+
+Obs: Caso seu usário não esteja autorizado a ler e escrever na porta USB referida, recomenda-se rodar:
+```
+sudo adduser <username> dialout
+sudo chmod a+rw /dev/ttyUSB0
+```
+substituindo <username> pelo seu nome de usuário.
