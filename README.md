@@ -36,7 +36,6 @@ cd ~/esp/esp-idf
 ```
 No terminal, onde vai usar o ESP-IDF, execute:
 ```
-
 . $HOME/esp/esp-idf/export.sh
 ```
 
