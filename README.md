@@ -86,3 +86,14 @@ sudo adduser <username> dialout
 sudo chmod a+rw /dev/ttyUSB0
 ```
 substituindo <username> pelo seu nome de usuário.
+
+# Ligação ESP32 com DAC
+Ligue os pinos do ESP32 e DAC seguindo a tabela abaixo:
+
+| ESP32  |DAC |
+| ------------- | ------------- |
+| 3V3  | 3V0  |
+| GND | GND  |
+| GPIO26 | WSEL  |
+| GPIO25 | DIN|
+| GPIO27 |BCLK  |
