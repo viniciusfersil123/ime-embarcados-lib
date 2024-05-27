@@ -14,6 +14,7 @@ void audio_callback()
 {
     osc.SetFreq(phs.Process() * 2000);
     int16_t OutputValue = (int16_t)(osc.Process() * Volume);
+    //Copia os valores para os dois canais
     Value32Bit = (OutputValue << 16) | (OutputValue & 0xffff);
     i2s_write(i2s_num, &Value32Bit, 4, &BytesWritten, portMAX_DELAY);
 }
