@@ -71,7 +71,7 @@ idf.py set-target esp32
 
 5. Rode
 ```
-idf_py build
+idf.py build
 ```
 
 6. Rode
