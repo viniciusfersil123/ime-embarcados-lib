@@ -1,6 +1,5 @@
+#include "defs.h"
 #include "Phasor.h"
-
-#define TWOPI_F 6.283185307179586476925286766559f
 
 void Phasor::SetFreq(float freq)
 {
