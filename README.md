@@ -30,10 +30,6 @@ cd ~/esp/esp-idf
 
 ### 4. Configurando variáveis ambientais
 As tools instaladas ainda não foram adicionadas à variável de ambiente PATH. Para tornar as ferramentas utilizáveis na linha de comando, algumas variáveis de ambiente devem ser definidas. ESP-IDF fornece outro script que faz isso.
-```
-cd ~/esp/esp-idf
-./install.sh esp32
-```
 No terminal, onde vai usar o ESP-IDF, execute:
 ```
 . $HOME/esp/esp-idf/export.sh
