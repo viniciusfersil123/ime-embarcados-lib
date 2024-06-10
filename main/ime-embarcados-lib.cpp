@@ -1,4 +1,5 @@
-#include "driver/i2s.h"
+#include "driver/i2s_std.h"
+#include "freertos/FreeRTOS.h"
 #include "config.h"
 #include "Phasor.h"
 #include "Oscillator.h"
@@ -16,13 +17,15 @@ void audio_callback()
     int16_t OutputValue = (int16_t)(osc.Process() * Volume);
     //Copia os valores para os dois canais
     Value32Bit = (OutputValue << 16) | (OutputValue & 0xffff);
-    i2s_write(i2s_num, &Value32Bit, 4, &BytesWritten, portMAX_DELAY);
+    i2s_channel_write(tx_handle, &Value32Bit, 4, &BytesWritten, portMAX_DELAY);
 }
 
 extern "C" void app_main(void)
 {
-    i2s_driver_install(i2s_num, &i2s_config, 0, NULL);
-    i2s_set_pin(i2s_num, &pin_config);
+    i2s_new_channel(&chan_cfg, &tx_handle, NULL);
+    i2s_channel_init_std_mode(tx_handle, &i2s_config);
+    i2s_channel_enable(tx_handle);
+
     phs.Init(44100,1);
     osc.Init(44100);
     osc.SetWaveform(Oscillator::WAVE_SIN);
