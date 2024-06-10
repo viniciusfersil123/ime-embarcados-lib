@@ -1,9 +1,7 @@
 // #include "dsp.h"
-#include "Oscillator.h"
 #include <cmath>
-
-#define PI_F 3.1415927410125732421875f
-#define TWOPI_F (2.0f * PI_F)
+#include "Oscillator.h"
+#include "defs.h"
 
 static inline float Polyblep(float phase_inc, float t);
 

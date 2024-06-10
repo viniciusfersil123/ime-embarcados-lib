@@ -1,8 +1,8 @@
 #ifndef DSY_METRO_H
 #define DSY_METRO_H
 #include <stdint.h>
-#define PI_F 3.1415927410125732421875f
-#define TWOPI_F (2.0f * PI_F)
+#include "defs.h"
+
 /** Creates a clock signal at a specific frequency.
  */
 class Metro
