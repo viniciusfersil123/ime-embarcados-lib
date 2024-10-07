@@ -46,7 +46,7 @@ alias get_idf='. $HOME/esp/esp-idf/export.sh'
 Crie uma pasta que usará para seus projetos, navegue até ela  e clone nosso repositório com o seguinte comando
 1. Copie e cole o seguinte comando no perfil do seu shell (.profile, .bashrc, .zprofile, etc.)
 ```
-git clone git@github.com:viniciusfersil123/ime-embarcados-lib.git
+git clone --recursive git@github.com:viniciusfersil123/ime-embarcados-lib.git
 ```
 2. Rode
 ```
