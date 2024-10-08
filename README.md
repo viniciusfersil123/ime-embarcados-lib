@@ -45,41 +45,35 @@ git clone -b v5.2.1 --recursive https://github.com/espressif/esp-idf.git
 
 Além do ESP-IDF, é necessário instalar as tools utilizadas pelo ESP-IDF para projetos que suportam ESP32 (como compilador, debugger, pacotes Python, etc.)
 
-Execute o comando
+Para isso, execute o comando
 
 ``` bash
 cd ~/esp/esp-idf
 ./install.sh esp32
 ```
 
-para instalar as tools necessárias para o ESP32.
-
 #### 4. Configurando variáveis ambientais
 
 As tools instaladas ainda não foram adicionadas à variável de ambiente PATH. Para tornar as ferramentas utilizáveis na linha de comando, algumas variáveis de ambiente devem ser definidas. ESP-IDF fornece outro script que faz isso.
 
 <!-- No terminal, onde vai usar o ESP-IDF, execute: -->
-No terminal, execute o comando abaixo para configurar as variáveis de ambiente:
+Para configurar as variáveis de ambiente, execute dentro de um diretório em que irá usar o ESP-IDF o comando abaixo
 
 ``` bash
 . $HOME/esp/esp-idf/export.sh
 ```
 
-Para facilitar o uso frequente do ESP-IDF, recomenda-se a criação de um `alias`. O comando abaixo cria um atalho para o comando acima.
-
-Copie e cole o seguinte comando no perfil do seu shell *(.profile, .bashrc, .zprofile, etc.)*
+Para facilitar o uso frequente do ESP-IDF, recomenda-se a criação de um `alias`, que cria um atalho para o comando acima. Copie e cole o seguinte comando no perfil do seu shell *(.profile, .bashrc, .zprofile, etc.)j
 
 ``` bash
 alias get_idf='. $HOME/esp/esp-idf/export.sh'
 ```
 
-e reinicie o terminal.
+e reinicie o terminal. Agora você pode executar o comando `get_idf` para configurar as variáveis de ambiente.
 
 #### 5. Testando um programa de exemplo
 
-Crie uma pasta que usará para seus projetos, navegue até ela  e clone nosso repositório com o seguinte comando
-
-Clone o repositorio `ime-embarcados-lib` com o comando abaixo
+Crie uma pasta que usará para seus projetos, navegue até ela e clone nosso repositório `ime-embarcados-lib` com o comando abaixo
 
 ``` bash
 git clone --recursive git@github.com:viniciusfersil123/ime-embarcados-lib.git
@@ -99,38 +93,36 @@ get_idf
 
 para configurar as variáveis de ambiente.
 
-Ligue o ESP32 via USB em seu computador.
-
-Execute
+Ligue o ESP32 via USB em seu computador e execute
 
 ``` bash
 ls /dev/tty*
 ```
 
-e guarde o nome da porta USB em que o ESP32 está conectado.
+para verificar a porta USB em que o ESP32 está conectado. Anote o nome da porta USB.
 
 Execute
 
 ``` bash
 idf.py set-target esp32
 idf.py build
-idf.py -p PORT flash
+idf.py -p <PORT> flash
 ```
 
-substituindo `PORT` pelo nome da porta USB em que o ESP32 está conectado, por ex: `dev/ttyUSB0`. Se `PORT` não estiver disponível, o ESP-IDF tentará fazer o flash nas portas USB disponíveis.
+substituindo `<PORT>` pelo nome da porta USB em que o ESP32 está conectado, por ex: `dev/ttyUSB0`. Se `<PORT>` não estiver disponível, o ESP-IDF tentará fazer o flash nas portas USB disponíveis.
 
-Obs: Caso seu usuário não esteja autorizado a ler e escrever na porta USB referida, recomenda-se executar
+*Obs.: Caso seu usuário não esteja autorizado a ler e escrever na porta USB referida, recomenda-se executar*
 
 ``` bash
 sudo adduser <username> dialout
 sudo chmod a+rw /dev/ttyUSB0
 ```
 
-substituindo `<username>` pelo seu nome de usuário.
+*substituindo `<username>` pelo seu nome de usuário.*
 
-## Ligação ESP32 com DAC
+## Ligação do ESP32 com DAC
 
-Ligue os pinos do ESP32 e DAC seguindo a tabela abaixo:
+Para conectar o ESP32 com o DAC, ligue os pinos seguindo a tabela abaixo:
 
 | ESP32  |DAC |
 | ------------- | ------------- |
