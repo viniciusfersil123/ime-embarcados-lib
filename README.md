@@ -89,12 +89,12 @@ No Windows Terminal, é possível escolher o shell que você deseja utilizar. De
 
 #### 2. Instalando ESP-IDF
 
-O **ESP-IDF Tools Installer** é um instalador que automaticamente configura as ferramentasje variáveis de ambiente necessárias para o desenvolvimento de aplicativos para ESP32. Leia as instruções e baixe o instalador [neste link](https://docs.espressif.com/projects/esp-idf/en/latest/esp32/get-started/windows-setup.html#).
+O **ESP-IDF Tools Installer** é um instalador que automaticamente configura as ferramentas e variáveis de ambiente necessárias para o desenvolvimento de aplicativos para ESP32. Leia as instruções e baixe o instalador [neste link](https://docs.espressif.com/projects/esp-idf/en/latest/esp32/get-started/windows-setup.html#).
 
 As variáveis de ambiente configuradas pelo instalador são:
 
 - `$IDF_PATH`: caminho para o diretório do ESP-IDF
-- `$Env:Path`: PATH do sistema, que inclui os diretórios do ESP-IDF 
+- `$Env:Path`: PATH do sistema, que inclui os diretórios do ESP-IDF
 
 #### 3. Acessando ambiente ESP-IDF
 
