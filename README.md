@@ -1,6 +1,6 @@
 # ime-embarcados-lib
 
-## Instalação
+## Instalação e configuração inicial
 
 ### Ubuntu
 
@@ -73,7 +73,34 @@ alias get_idf='. $HOME/esp/esp-idf/export.sh'
 
 e reinicie o terminal. Agora você pode executar o comando `get_idf` para configurar as variáveis de ambiente automaticamente.
 
-#### 5. Testando um programa de exemplo
+### Windows
+
+#### 1. Instalando Git Bash
+
+O **Git Bash** é um terminal que permite a execução de comandos do Git e de outros comandos do Unix no Windows. Baixe o Git Bash [neste link](https://gitforwindows.org/). Instale e configure em sua máquina de acordo com suas preferências.
+
+#### 1.5 Instalando Windows Terminal (opcional)
+
+O **Windows Terminal** é um emulador de terminal moderno e elegante. Baixe o Windows Terminal [neste link](https://apps.microsoft.com/detail/9n0dx20hk701?hl=pt-BR&gl=BR). Instale e configure  em sua máquina de acordo com suas preferências.
+
+No Windows Terminal, é possível escolher o shell que você deseja utilizar. Dentre eles: Powershell, Prompt de Comando, Azure Cloud Shell, Git Bash e inclusive o próprio shell do ESP-IDF.
+
+![Seleção de perfis com o Windows Terminal](windows-terminal-profiles.png)
+
+#### 2. Instalando ESP-IDF
+
+O **ESP-IDF Tools Installer** é um instalador que automaticamente configura as ferramentasje variáveis de ambiente necessárias para o desenvolvimento de aplicativos para ESP32. Leia as instruções e baixe o instalador [neste link](https://docs.espressif.com/projects/esp-idf/en/latest/esp32/get-started/windows-setup.html#).
+
+As variáveis de ambiente configuradas pelo instalador são:
+
+- `$IDF_PATH`: caminho para o diretório do ESP-IDF
+- `$Env:Path`: PATH do sistema, que inclui os diretórios do ESP-IDF 
+
+#### 3. Acessando ambiente ESP-IDF
+
+Após instalar o ESP-IDF Tools, é possível acessar um shell do ESP-IDF pelo atalho criado no menu Iniciar. Execute o atalho (*ESP-IDF X.X PowerShell* ou *ESP-IDF X.X CMD*) ou selecione o perfil ESP-IDF X.X no  e aguarde a configuração do ambiente. Agora você pode executar comandos do ESP-IDF.
+
+## Configuração do ime-embarcados-lib
 
 Crie uma pasta que usará para seus projetos, navegue até ela e clone nosso repositório `ime-embarcados-lib` com o comando
 
@@ -121,6 +148,9 @@ sudo chmod a+rw /dev/ttyUSB0
 ```
 
 *substituindo `<username>` pelo seu nome de usuário.*
+
+
+#### 4. Clonando ime-embarcados-lib
 
 ## Ligação do ESP32 com DAC
 
