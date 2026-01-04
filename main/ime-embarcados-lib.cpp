@@ -1,4 +1,4 @@
-#include "driver/i2s_std.h"
+#include "driver/dac_continuous.h"
 #include "freertos/FreeRTOS.h"
 #include "config.h"
 #include "../DaisySP/Source/daisysp.h"
